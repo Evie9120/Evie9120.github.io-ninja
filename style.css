@@ -1,0 +1,163 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+
+#score {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  font-size: 2em;
+  font-weight: 900;
+  z-index: 3;
+}
+
+#restart {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  border-radius: 50%;
+  color: white;
+  background-color: red;
+  border: none;
+  font-weight: 700;
+  font-size: 1.2em;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  display: none;
+  cursor: pointer;
+  z-index: 3;
+}
+
+#perfect {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 2s;
+  font-weight: 900;
+  font-size: 1.3em;
+  color: #E8590C;
+  top: 40%;
+  z-index: 3;
+}
+
+/* Start screen */
+#startScreen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: linear-gradient(#BBD691, #FEF1E1);
+  z-index: 10;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#startScreen h1 {
+  font-size: 2.5em;
+  margin: 0;
+  color: #333;
+}
+
+#instructions {
+  max-width: 320px;
+  font-size: 0.9em;
+  line-height: 1.5;
+  color: #333;
+}
+
+#instructions p {
+  margin: 6px 0;
+}
+
+#startBtn {
+  padding: 14px 40px;
+  font-size: 1.1em;
+  font-weight: 700;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+/* Pause menu */
+#pauseMenu {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 10;
+}
+
+#pauseMenu h2 {
+  color: white;
+  margin: 0 0 10px 0;
+}
+
+#pauseMenu button {
+  padding: 12px 30px;
+  font-size: 1em;
+  font-weight: 700;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+#resumeBtn {
+  background-color: #95C629;
+  color: white;
+}
+
+#menuBtn {
+  background-color: #eee;
+  color: #333;
+}
+
+/* Top corner buttons */
+#pauseBtn,
+#soundToggle {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background-color: white;
+  font-size: 1.2em;
+  cursor: pointer;
+  z-index: 5;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  align-items: center;
+  justify-content: center;
+}
+
+#pauseBtn {
+  right: 30px;
+  top: 90px;
+  display: none;
+}
+
+#soundToggle {
+  left: 30px;
+  top: 30px;
+  display: flex;
+}
