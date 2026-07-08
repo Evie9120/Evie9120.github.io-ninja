@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Word Bridge | @coding.stella</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <div id="score"></div>
+
+    <button id="soundToggle" title="Toggle sound">🔊</button>
+    <button id="pauseBtn" title="Pause">⏸</button>
+
+    <canvas id="game" width="375" height="375"></canvas>
+
+    <div id="startScreen">
+      <h1>Word Bridge</h1>
+      <div id="instructions">
+        <p>⌨️ Type any real word — each letter grows your bridge.</p>
+        <p>🌉 Longer words make longer bridges. Pick wisely for each gap!</p>
+        <p>↩️ Press Enter to drop the bridge and cross.</p>
+        <p>⚡ No typos + fast typing = DOUBLE SCORE.</p>
+        <p>🌲 Miss the platform and you fall. Game over!</p>
+      </div>
+      <button id="startBtn">START</button>
+    </div>
+
+    <div id="pauseMenu">
+      <h2>Paused</h2>
+      <button id="resumeBtn">RESUME</button>
+      <button id="menuBtn">MAIN MENU</button>
+    </div>
+
+    <div id="perfect">DOUBLE SCORE</div>
+    <button id="restart">RESTART</button>
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
