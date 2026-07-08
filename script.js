@@ -18,6 +18,7 @@ let sticks = [];
 let trees = [];
 
 let score = 0;
+let lives = 3;
 
 let gameStarted = false;
 let isGameOver = false;
@@ -39,6 +40,7 @@ const canvasHeight = 375;
 const platformHeight = 100;
 const heroDistanceFromEdge = 10;
 const paddingX = 100;
+const maxLives = 3;
 
 const lengthPerLetter = 20; // ~"2cm" at game scale
 const TIME_LIMIT_MS = 6000; // must submit within this to be eligible for perfect
@@ -69,6 +71,7 @@ const ctx = canvas.getContext("2d");
 const perfectElement = document.getElementById("perfect");
 const restartButton = document.getElementById("restart");
 const scoreElement = document.getElementById("score");
+const livesElement = document.getElementById("lives");
 
 const startScreen = document.getElementById("startScreen");
 const startBtn = document.getElementById("startBtn");
@@ -184,11 +187,18 @@ function countLetters(buffer) {
 // ============================================================
 // GAME SETUP
 // ============================================================
+function updateLivesUI() {
+  const safeLives = Math.max(0, Math.min(lives, maxLives));
+  livesElement.innerHTML = "❤️".repeat(safeLives) + "🤍".repeat(maxLives - safeLives);
+  livesElement.setAttribute("aria-label", `${safeLives} ${safeLives === 1 ? "life" : "lives"} left`);
+}
+
 function resetGame() {
   phase = "typing";
   lastTimestamp = undefined;
   sceneOffset = 0;
   score = 0;
+  lives = maxLives;
   isGameOver = false;
 
   wordBuffer = [];
@@ -201,6 +211,7 @@ function resetGame() {
   perfectElement.style.opacity = 0;
   restartButton.style.display = "none";
   scoreElement.innerText = score;
+  updateLivesUI();
 
   platforms = [{ x: 50, w: 50 }];
   generatePlatform();
@@ -492,11 +503,33 @@ function animate(timestamp) {
       heroY += (timestamp - lastTimestamp) / fallingSpeed;
       const maxHeroY = platformHeight + 100 + (window.innerHeight - canvasHeight) / 2;
       if (heroY > maxHeroY) {
-        restartButton.style.display = "block";
-        pauseBtn.style.display = "none";
-        isGameOver = true;
+        lives -= 1;
+        updateLivesUI();
+
+        if (lives <= 0) {
+          restartButton.style.display = "block";
+          pauseBtn.style.display = "none";
+          isGameOver = true;
+          stopCursorBlink();
+          playGameOverSound();
+          return;
+        }
+
+        const currentPlatform = platforms[platforms.length - 2] || platforms[platforms.length - 1] || platforms[0];
+        heroX = currentPlatform.x + currentPlatform.w - heroDistanceFromEdge;
+        heroY = 0;
+        sceneOffset = 0;
+        phase = "typing";
+        lastTimestamp = undefined;
+        wordBuffer = [];
+        hadBackspace = false;
+        wordStartTime = null;
+        pendingPerfect = false;
+        feedbackText = "";
+        sticks = [{ x: currentPlatform.x + currentPlatform.w, length: 0, rotation: 0 }];
         stopCursorBlink();
-        playGameOverSound();
+        startCursorBlink();
+        draw();
         return;
       }
       break;
