@@ -25,6 +25,15 @@ body {
   z-index: 3;
 }
 
+#lives {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  font-size: 1.6em;
+  z-index: 3;
+  letter-spacing: 2px;
+}
+
 #restart {
   width: 120px;
   height: 120px;
